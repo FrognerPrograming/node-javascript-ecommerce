@@ -2,13 +2,10 @@ import axios from 'axios';
 import { apiUrl } from './config';
 import { getUserInfo } from './localStorage';
 
-export const getProducts = async ({ searchKeyword = '' }) => {
+export const getProducts = async () => {
   try {
-    let queryString = '?';
-    if (searchKeyword) queryString += `searchKeyword=${searchKeyword}&`;
-
     const response = await axios({
-      url: `${apiUrl}/api/products${queryString}`,
+      url: `${apiUrl}/api/products/`,
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -19,9 +16,9 @@ export const getProducts = async ({ searchKeyword = '' }) => {
     }
     return response.data;
   } catch (err) {
-    console.log(err);
     return { error: err.response.data.message || err.message };
   }
+
 };
 
 export const getProduct = async (id) => {
